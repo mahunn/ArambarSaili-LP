@@ -639,20 +639,83 @@ export function ProductShowcase({ product }: { product: ProductData }) {
         </div>
       </div>
 
-      {/* Footer */}
-      <footer className="relative w-full border-t border-[#6E2A37] bg-gradient-to-b from-[#3D101A] to-[#1E050B] py-10 pb-20 text-[#FAF3EE] md:pb-10">
-        <div className="container-page relative mx-auto text-center flex flex-col items-center gap-4">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/logo.jpeg"
-            alt={companyName}
-            className="h-16 w-16 sm:h-20 sm:w-20 rounded-full object-cover shadow-lg ring-4 ring-[#D4A343]/60"
-          />
-          <div>
-            <p className="font-display text-xl font-bold text-[#FAF3EE]">{companyName}</p>
-            <p className="text-xs text-[#D4A343] mt-0.5">📞 {displayContact}</p>
+      {/* Site footer */}
+      <footer className="relative w-full overflow-hidden border-t border-[#6E2A37] bg-gradient-to-b from-[#3D101A] via-[#2D0A12] to-[#1E050B] pb-24 text-[#FAF3EE] md:pb-0">
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.25]"
+          style={{
+            backgroundImage: "radial-gradient(ellipse 80% 50% at 50% -20%, rgba(212,163,67,0.2), transparent 55%)"
+          }}
+        />
+        <div className="container-page relative mx-auto py-12 md:py-16">
+          <div className="flex flex-col items-center justify-center text-center gap-6">
+            <div className="flex flex-col items-center justify-center max-w-lg">
+              <div className="flex flex-col items-center gap-3">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/logo.jpeg"
+                  alt={companyName}
+                  className="h-20 w-20 sm:h-24 sm:w-24 md:h-28 md:w-28 rounded-full object-cover shadow-2xl ring-4 ring-[#D4A343]/70 ring-offset-4 ring-offset-[#2D0A12]"
+                />
+                <div className="text-center">
+                  <p className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-[#FAF3EE]">{companyName}</p>
+                  <p className="mt-1 text-xs font-semibold tracking-wider text-[#D4A343]">রুচিশীলতা তোমার, আড়ম্বর শৈলী সবার</p>
+                </div>
+              </div>
+
+              <a
+                href={callLink}
+                className="group mt-5 inline-flex items-center gap-2.5 text-sm font-semibold tracking-tight text-[#E8C7B0] transition hover:text-[#D4A343]"
+              >
+                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#D4A343]/20 text-[#D4A343] ring-1 ring-[#D4A343]/35 transition group-hover:bg-[#D4A343]/30">
+                  📞
+                </span>
+                <span className="tabular-nums">{displayContact}</span>
+              </a>
+
+              <div className="mt-3 flex flex-col items-center gap-1.5 text-xs text-[#E8C7B0]">
+                <p className="flex items-center gap-1.5">
+                  <span className="text-[#D4A343]" aria-hidden>📍</span> Mirpur 10, Dhaka
+                </p>
+                <a
+                  href="mailto:arambar.saili@gmail.com"
+                  className="flex items-center gap-1.5 hover:text-[#D4A343] transition"
+                >
+                  <span className="text-[#D4A343]" aria-hidden>✉️</span> arambar.saili@gmail.com
+                </a>
+              </div>
+
+              <p className="mt-4 text-xs font-light leading-relaxed text-[#E8C7B0]">
+                ক্যাশ অন ডেলিভারি <span className="mx-2 text-[#6E2A37]">|</span> সারাদেশে ডেলিভারি
+              </p>
+
+              <div className="mt-5 h-px w-16 bg-gradient-to-r from-transparent via-[#D4A343]/70 to-transparent mx-auto" aria-hidden />
+
+              <p className="mt-5 text-[11px] font-medium uppercase tracking-[0.22em] text-[#C49FA7]">
+                © {new Date().getFullYear()} সর্বস্বত্ব সংরক্ষিত
+              </p>
+            </div>
+
+            <div className="flex flex-col items-center justify-center gap-2 text-center">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.38em] text-[#C49FA7]">Developed by</p>
+              <a
+                href="https://websy.bd"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex flex-col items-center gap-1 rounded-2xl p-0 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#D4A343]/60"
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/websy-white.png"
+                  alt="Websy"
+                  className="h-8 w-auto object-contain transition-transform duration-300 group-hover:scale-[1.03]"
+                />
+                <span className="text-xs font-normal tracking-wide text-white/70 transition group-hover:text-[#D4A343]">
+                  websy.bd
+                </span>
+              </a>
+            </div>
           </div>
-          <p className="text-[11px] text-[#C49FA7]">© {new Date().getFullYear()} সর্বস্বত্ব সংরক্ষিত</p>
         </div>
       </footer>
 
