@@ -229,25 +229,25 @@ export function ProductShowcase({ product }: { product: ProductData }) {
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-[#FAF3EE] via-[#F7EBE3] to-[#F2E2D7] text-[#4A121A] overflow-x-hidden w-full max-w-full">
+    <main className="min-h-screen bg-gradient-to-b from-[#1C0B0E] via-[#240F13] to-[#140608] text-[#FAF3EE] overflow-x-hidden w-full max-w-full">
       <div className="w-full max-w-full overflow-x-hidden relative flex flex-col min-h-screen">
       
       {/* Header */}
-      <header className="sticky top-0 z-30 border-b border-[#E8D3C3] bg-[#FAF3EE]/95 shadow-xs backdrop-blur-md">
+      <header className="sticky top-0 z-30 border-b border-[#5E2B35]/70 bg-gradient-to-b from-[#2A1216] to-[#1C0B0E]/95 shadow-md backdrop-blur-md">
         <div className="container-page flex min-h-14 items-center justify-between gap-2 py-2">
           <div className="flex items-center gap-3">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/logo.jpeg"
               alt={companyName}
-              className="h-10 w-10 sm:h-12 sm:w-12 rounded-full object-cover shadow-sm ring-2 ring-[#D4A343]/60 shrink-0"
+              className="h-10 w-10 sm:h-12 sm:w-12 rounded-full object-cover shadow-md ring-2 ring-[#D4A343]/60 ring-offset-2 ring-offset-[#2A1216] shrink-0"
             />
-            <p className="font-display text-base sm:text-lg font-bold tracking-tight text-[#4A121A]">{companyName}</p>
+            <p className="font-display text-base sm:text-lg font-bold tracking-tight text-[#FAF3EE]">{companyName}</p>
           </div>
           <div className="flex items-center gap-2 sm:gap-3">
             <a
               href={callLink}
-              className="hidden items-center gap-1.5 text-xs font-semibold text-[#5C1724] hover:text-[#9E3647] sm:flex bg-white/80 border border-[#E8D3C3] px-3 py-1.5 rounded-full shadow-xs"
+              className="hidden items-center gap-1.5 text-xs font-semibold text-[#E8C7B0] hover:text-white sm:flex bg-[#34161B] border border-[#5E2B35] px-3 py-1.5 rounded-full shadow-xs"
             >
               <span>📞</span>
               <span className="tabular-nums">{displayContact}</span>
@@ -269,8 +269,8 @@ export function ProductShowcase({ product }: { product: ProductData }) {
           
           {/* Gallery */}
           <aside className="lg:sticky lg:top-[4.5rem] lg:self-start">
-            <div className="glass-card rounded-3xl p-3 shadow-xs border border-[#E8D3C3]">
-              <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-[#FDF8F5] border border-[#E8D3C3]/60">
+            <div className="rounded-3xl bg-[#2D151A] p-3 shadow-lg border border-[#5E2B35]">
+              <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-[#1C0B0E] border border-[#5E2B35]/60">
                 {activeImage ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
@@ -279,7 +279,7 @@ export function ProductShowcase({ product }: { product: ProductData }) {
                     className="h-full w-full object-cover transition-transform duration-500 hover:scale-[1.02]"
                   />
                 ) : (
-                  <div className="flex h-full items-center justify-center text-sm text-[#9E7C84]">ছবি নেই</div>
+                  <div className="flex h-full items-center justify-center text-sm text-[#C49FA7]">ছবি নেই</div>
                 )}
                 {discountBadgeBn ? (
                   <span className="absolute left-3 top-3 rounded-lg bg-[#9E3647] px-2.5 py-0.5 text-xs font-bold text-white shadow-xs">
@@ -291,7 +291,7 @@ export function ProductShowcase({ product }: { product: ProductData }) {
                     <button
                       type="button"
                       onClick={goPrevImage}
-                      className="absolute left-2.5 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-base text-[#4A121A] shadow-xs border border-[#E8D3C3]"
+                      className="absolute left-2.5 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-black/60 text-base text-[#FAF3EE] shadow-xs border border-[#5E2B35]"
                       aria-label="আগের ছবি"
                     >
                       ‹
@@ -299,7 +299,7 @@ export function ProductShowcase({ product }: { product: ProductData }) {
                     <button
                       type="button"
                       onClick={goNextImage}
-                      className="absolute right-2.5 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-base text-[#4A121A] shadow-xs border border-[#E8D3C3]"
+                      className="absolute right-2.5 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-black/60 text-base text-[#FAF3EE] shadow-xs border border-[#5E2B35]"
                       aria-label="পরের ছবি"
                     >
                       ›
@@ -307,7 +307,7 @@ export function ProductShowcase({ product }: { product: ProductData }) {
                   </>
                 ) : null}
                 {images.length > 0 ? (
-                  <span className="absolute bottom-2.5 right-2.5 rounded-full bg-[#4A121A]/80 px-2 py-0.5 text-[11px] font-medium text-[#FAF3EE]">
+                  <span className="absolute bottom-2.5 right-2.5 rounded-full bg-black/70 px-2 py-0.5 text-[11px] font-medium text-[#FAF3EE]">
                     {toBanglaDigits(imageIndex + 1)}/{toBanglaDigits(images.length)}
                   </span>
                 ) : null}
@@ -328,7 +328,7 @@ export function ProductShowcase({ product }: { product: ProductData }) {
                             setImageIndex(imgIdx);
                           }}
                           className={`relative h-16 w-14 shrink-0 overflow-hidden rounded-xl border-2 transition-all ${
-                            selected ? "border-[#9E3647]" : "border-[#E8D3C3] opacity-80"
+                            selected ? "border-[#9E3647]" : "border-[#5E2B35] opacity-80"
                           }`}
                         >
                           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -346,28 +346,28 @@ export function ProductShowcase({ product }: { product: ProductData }) {
           <div className="space-y-4">
             
             {/* Overview Card */}
-            <div className="glass-card rounded-3xl p-5 shadow-xs border border-[#E8D3C3]">
-              <h1 className="font-display text-xl sm:text-2xl font-bold text-[#4A121A] leading-snug">{product.title}</h1>
+            <div className="rounded-3xl bg-[#2D151A] p-5 shadow-lg border border-[#5E2B35]">
+              <h1 className="font-display text-xl sm:text-2xl font-bold text-[#FAF3EE] leading-snug">{product.title}</h1>
               
               <div className="mt-1.5 flex items-center gap-2 text-[#D4A343] text-xs font-semibold">
                 <span>★★★★★</span>
-                <span className="text-[#7D525C]">৫.০ ({reviewCountBn} রিভিউ)</span>
+                <span className="text-[#E8C7B0]">৫.০ ({reviewCountBn} রিভিউ)</span>
               </div>
 
               {/* Price */}
-              <div className="mt-3 flex items-baseline gap-2.5 border-y border-[#E8D3C3]/60 py-3">
-                <p className="text-2xl sm:text-3xl font-bold text-[#9E3647]">{toMoney(discountedPrice)}</p>
+              <div className="mt-3 flex items-baseline gap-2.5 border-y border-[#5E2B35]/70 py-3">
+                <p className="text-2xl sm:text-3xl font-bold text-[#EAA4B0]">{toMoney(discountedPrice)}</p>
                 {product.discountType !== "none" ? (
-                  <p className="text-base text-[#9E7C84] line-through">{toMoney(product.basePrice)}</p>
+                  <p className="text-base text-[#C49FA7] line-through">{toMoney(product.basePrice)}</p>
                 ) : null}
               </div>
 
               {/* Minimal Features List */}
               {featureLines.length > 0 ? (
-                <ul className="mt-3 space-y-1 text-xs sm:text-sm text-[#4A121A]">
+                <ul className="mt-3 space-y-1 text-xs sm:text-sm text-[#FAF3EE]">
                   {featureLines.map((line) => (
                     <li key={line} className="flex gap-2 items-center">
-                      <span className="text-[#9E3647] font-bold">✓</span>
+                      <span className="text-[#EAA4B0] font-bold">✓</span>
                       <span>{line}</span>
                     </li>
                   ))}
@@ -377,7 +377,7 @@ export function ProductShowcase({ product }: { product: ProductData }) {
               {/* Quick Action Button */}
               <a
                 href="#color-selector"
-                className="mt-4 flex min-h-11 w-full items-center justify-center gap-2 rounded-2xl bg-[#9E3647] px-4 py-2.5 text-sm font-bold text-white shadow-sm hover:bg-[#8B2C3B] transition"
+                className="mt-4 flex min-h-11 w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-[#9E3647] via-[#8B2C3B] to-[#73202E] px-4 py-2.5 text-sm font-bold text-white shadow-md hover:from-[#B04D5F] hover:to-[#8B2C3B] transition"
               >
                 অর্ডার করুন
               </a>
@@ -390,16 +390,16 @@ export function ProductShowcase({ product }: { product: ProductData }) {
                 { icon: "💵", label: "ক্যাশ অন ডেলিভারি" },
                 { icon: "✓", label: "অরিজিনাল কোয়ালিটি" }
               ].map((item) => (
-                <div key={item.label} className="flex flex-col items-center justify-center gap-1 rounded-2xl border border-[#E8D3C3] bg-white/90 p-2 text-center shadow-xs">
+                <div key={item.label} className="flex flex-col items-center justify-center gap-1 rounded-2xl border border-[#5E2B35] bg-[#2D151A] p-2 text-center shadow-xs">
                   <span className="text-lg">{item.icon}</span>
-                  <span className="text-[10px] font-bold text-[#4A121A]">{item.label}</span>
+                  <span className="text-[10px] font-bold text-[#FAF3EE]">{item.label}</span>
                 </div>
               ))}
             </div>
 
             {/* STEP 1: Color & Size */}
-            <div id="color-selector" className="glass-card rounded-3xl p-5 shadow-xs border border-[#E8D3C3]">
-              <p className="text-sm font-bold text-[#4A121A] border-b border-[#E8D3C3]/60 pb-2">১. রঙ ও সাইজ নির্বাচন করুন</p>
+            <div id="color-selector" className="rounded-3xl bg-[#2D151A] p-5 shadow-lg border border-[#5E2B35]">
+              <p className="text-sm font-bold text-[#FAF3EE] border-b border-[#5E2B35]/70 pb-2">১. রঙ ও সাইজ নির্বাচন করুন</p>
 
               <div className="mt-3 space-y-2.5">
                 {product.variants.map((variant, idx) => {
@@ -412,26 +412,26 @@ export function ProductShowcase({ product }: { product: ProductData }) {
                       onClick={() => handleCardClick(idx)}
                       className={`relative flex flex-col rounded-2xl border p-3 cursor-pointer select-none transition ${
                         isChecked 
-                          ? "border-[#9E3647] bg-[#FDF2F4]" 
-                          : "border-[#E8D3C3] bg-[#FAF4EF] hover:bg-[#F8EEE7]"
+                          ? "border-[#9E3647] bg-[#3B1920]" 
+                          : "border-[#5E2B35] bg-[#34161B] hover:bg-[#3D1A21]"
                       }`}
                     >
                       <div className="flex items-center gap-3">
                         <div
                           onClick={(e) => handleCheckboxToggle(idx, e)}
                           className={`flex h-5 w-5 shrink-0 items-center justify-center rounded border transition ${
-                            isChecked ? "border-[#9E3647] bg-[#9E3647] text-white" : "border-[#E8D3C3] bg-white"
+                            isChecked ? "border-[#9E3647] bg-[#9E3647] text-white" : "border-[#5E2B35] bg-[#2A1216]"
                           }`}
                         >
                           {isChecked && <span className="text-xs font-bold">✓</span>}
                         </div>
 
                         <div className="min-w-0 flex-1">
-                          <p className="font-bold text-xs sm:text-sm text-[#4A121A]">{variant.colorName}</p>
-                          <p className="text-xs font-bold text-[#9E3647]">{toMoney(discountedPrice)}</p>
+                          <p className="font-bold text-xs sm:text-sm text-[#FAF3EE]">{variant.colorName}</p>
+                          <p className="text-xs font-bold text-[#EAA4B0]">{toMoney(discountedPrice)}</p>
                         </div>
 
-                        <div className="h-12 w-12 shrink-0 overflow-hidden rounded-lg border border-[#E8D3C3] bg-white">
+                        <div className="h-12 w-12 shrink-0 overflow-hidden rounded-lg border border-[#5E2B35] bg-[#1C0B0E]">
                           {previewImage ? (
                             <img src={getDisplayImageUrl(previewImage)} alt="" className="h-full w-full object-cover" />
                           ) : null}
@@ -440,7 +440,7 @@ export function ProductShowcase({ product }: { product: ProductData }) {
 
                       {/* Sizes */}
                       {isChecked && (
-                        <div className="mt-2.5 border-t border-[#E8D3C3]/60 pt-2" onClick={(e) => e.stopPropagation()}>
+                        <div className="mt-2.5 border-t border-[#5E2B35]/70 pt-2" onClick={(e) => e.stopPropagation()}>
                           <div className="flex flex-wrap gap-1.5">
                             {variant.sizes.map((s) => {
                               const isSizeSelected = selectedSizes[variant.colorName] === s;
@@ -452,7 +452,7 @@ export function ProductShowcase({ product }: { product: ProductData }) {
                                   className={`min-h-9 px-3 text-xs font-bold rounded-lg border transition ${
                                     isSizeSelected
                                       ? "border-[#9E3647] bg-[#9E3647] text-white"
-                                      : "border-[#E8D3C3] bg-white text-[#4A121A]"
+                                      : "border-[#5E2B35] bg-[#2A1216] text-[#FAF3EE]"
                                   }`}
                                 >
                                   {s}
@@ -472,46 +472,46 @@ export function ProductShowcase({ product }: { product: ProductData }) {
             <form
               id="order-form"
               action={orderAction}
-              className="glass-card rounded-3xl p-5 shadow-xs border border-[#E8D3C3] space-y-3.5"
+              className="rounded-3xl bg-[#2D151A] p-5 shadow-lg border border-[#5E2B35] space-y-3.5"
             >
-              <p className="text-sm font-bold text-[#4A121A] border-b border-[#E8D3C3]/60 pb-2">২. আপনার ডেলিভারি তথ্য</p>
+              <p className="text-sm font-bold text-[#FAF3EE] border-b border-[#5E2B35]/70 pb-2">২. আপনার ডেলিভারি তথ্য</p>
 
               <div className="grid gap-3 sm:grid-cols-2">
                 <div>
-                  <label className="mb-1 block text-xs font-bold text-[#4A121A]">আপনার নাম *</label>
+                  <label className="mb-1 block text-xs font-bold text-[#FAF3EE]">আপনার নাম *</label>
                   <input
                     name="customerName"
                     placeholder="পূর্ণ নাম"
-                    className="min-h-11 w-full rounded-xl border border-[#E8D3C3] bg-[#FAF4EF] px-3.5 text-xs text-[#2C0E14] outline-none focus:border-[#9E3647] focus:bg-white"
+                    className="min-h-11 w-full rounded-xl border border-[#5E2B35] bg-[#34161B] px-3.5 text-xs text-[#FAF3EE] outline-none focus:border-[#9E3647] focus:bg-[#3D1A21] placeholder:text-[#A8838B]"
                     required
                   />
                 </div>
                 <div>
-                  <label className="mb-1 block text-xs font-bold text-[#4A121A]">মোবাইল নাম্বার *</label>
+                  <label className="mb-1 block text-xs font-bold text-[#FAF3EE]">মোবাইল নাম্বার *</label>
                   <input
                     name="customerPhone"
                     placeholder="01XXXXXXXXX"
-                    className="min-h-11 w-full rounded-xl border border-[#E8D3C3] bg-[#FAF4EF] px-3.5 text-xs text-[#2C0E14] outline-none focus:border-[#9E3647] focus:bg-white"
+                    className="min-h-11 w-full rounded-xl border border-[#5E2B35] bg-[#34161B] px-3.5 text-xs text-[#FAF3EE] outline-none focus:border-[#9E3647] focus:bg-[#3D1A21] placeholder:text-[#A8838B]"
                     required
                   />
                 </div>
               </div>
 
               <div>
-                <label className="mb-1 block text-xs font-bold text-[#4A121A]">ঠিকানা *</label>
+                <label className="mb-1 block text-xs font-bold text-[#FAF3EE]">ঠিকানা *</label>
                 <textarea
                   name="customerAddress"
                   placeholder="এলাকা, থানা, জেলা"
-                  className="h-20 w-full rounded-xl border border-[#E8D3C3] bg-[#FAF4EF] px-3.5 py-2 text-xs text-[#2C0E14] outline-none focus:border-[#9E3647] focus:bg-white"
+                  className="h-20 w-full rounded-xl border border-[#5E2B35] bg-[#34161B] px-3.5 py-2 text-xs text-[#FAF3EE] outline-none focus:border-[#9E3647] focus:bg-[#3D1A21] placeholder:text-[#A8838B]"
                   required
                 />
               </div>
 
               {/* Delivery Zone */}
               <div>
-                <p className="mb-1.5 text-xs font-bold text-[#4A121A]">ডেলিভারি এরিয়া *</p>
+                <p className="mb-1.5 text-xs font-bold text-[#FAF3EE]">ডেলিভারি এরিয়া *</p>
                 <div className="grid gap-2 sm:grid-cols-2">
-                  <label className="flex min-h-11 cursor-pointer items-center gap-2 rounded-xl border border-[#E8D3C3] bg-[#FAF4EF] px-3 has-[:checked]:border-[#9E3647] has-[:checked]:bg-[#FDF2F4]">
+                  <label className="flex min-h-11 cursor-pointer items-center gap-2 rounded-xl border border-[#5E2B35] bg-[#34161B] px-3 has-[:checked]:border-[#9E3647] has-[:checked]:bg-[#3B1920]">
                     <input 
                       type="radio" 
                       name="deliveryZone" 
@@ -521,9 +521,9 @@ export function ProductShowcase({ product }: { product: ProductData }) {
                       className="accent-[#9E3647]" 
                       required 
                     />
-                    <span className="text-xs font-semibold text-[#4A121A]">ঢাকার বাইরে (১৫০ টাকা)</span>
+                    <span className="text-xs font-semibold text-[#FAF3EE]">ঢাকার বাইরে (১৫০ টাকা)</span>
                   </label>
-                  <label className="flex min-h-11 cursor-pointer items-center gap-2 rounded-xl border border-[#E8D3C3] bg-[#FAF4EF] px-3 has-[:checked]:border-[#9E3647] has-[:checked]:bg-[#FDF2F4]">
+                  <label className="flex min-h-11 cursor-pointer items-center gap-2 rounded-xl border border-[#5E2B35] bg-[#34161B] px-3 has-[:checked]:border-[#9E3647] has-[:checked]:bg-[#3B1920]">
                     <input 
                       type="radio" 
                       name="deliveryZone" 
@@ -532,7 +532,7 @@ export function ProductShowcase({ product }: { product: ProductData }) {
                       onChange={() => setDeliveryZone("inside")}
                       className="accent-[#9E3647]" 
                     />
-                    <span className="text-xs font-semibold text-[#4A121A]">ঢাকা সিটি (৮০ টাকা)</span>
+                    <span className="text-xs font-semibold text-[#FAF3EE]">ঢাকা সিটি (৮০ টাকা)</span>
                   </label>
                 </div>
               </div>
@@ -544,16 +544,16 @@ export function ProductShowcase({ product }: { product: ProductData }) {
 
               {/* Selected Items */}
               {orderItems.length > 0 ? (
-                <div className="rounded-xl border border-[#E8C4CE] bg-[#FDF2F4] p-3 text-xs">
+                <div className="rounded-xl border border-[#5E2B35] bg-[#3B1920] p-3 text-xs">
                   <div className="space-y-1.5">
                      {orderItems.map((item, idx) => (
-                      <div key={`${item.color}-${item.size}-${idx}`} className="flex items-center justify-between bg-white p-2 rounded-lg border border-[#E8D3C3]">
-                        <span className="font-bold text-[#4A121A]">{item.color} ({item.size})</span>
+                      <div key={`${item.color}-${item.size}-${idx}`} className="flex items-center justify-between bg-[#2A1216] p-2 rounded-lg border border-[#5E2B35]">
+                        <span className="font-bold text-[#FAF3EE]">{item.color} ({item.size})</span>
                         <div className="flex items-center gap-1.5">
-                          <button type="button" onClick={() => handleUpdateItemQty(item.color, -1)} className="px-2 py-0.5 rounded bg-[#FAF4EF] font-bold text-xs">-</button>
+                          <button type="button" onClick={() => handleUpdateItemQty(item.color, -1)} className="px-2 py-0.5 rounded bg-[#34161B] font-bold text-xs">-</button>
                           <span className="font-bold">{toBanglaDigits(item.quantity)}</span>
-                          <button type="button" onClick={() => handleUpdateItemQty(item.color, 1)} className="px-2 py-0.5 rounded bg-[#FAF4EF] font-bold text-xs">+</button>
-                          <button type="button" onClick={() => handleRemoveItem(item.color)} className="ml-1 text-red-500 font-bold">✕</button>
+                          <button type="button" onClick={() => handleUpdateItemQty(item.color, 1)} className="px-2 py-0.5 rounded bg-[#34161B] font-bold text-xs">+</button>
+                          <button type="button" onClick={() => handleRemoveItem(item.color)} className="ml-1 text-red-400 font-bold">✕</button>
                         </div>
                       </div>
                     ))}
@@ -562,27 +562,27 @@ export function ProductShowcase({ product }: { product: ProductData }) {
               ) : null}
 
               {/* Summary */}
-              <div className="rounded-xl border border-[#E8D3C3] bg-[#FAF4EF] p-3 text-xs space-y-1">
-                <div className="flex justify-between">
+              <div className="rounded-xl border border-[#5E2B35] bg-[#34161B] p-3 text-xs space-y-1">
+                <div className="flex justify-between text-[#E8C7B0]">
                   <span>পণ্যের দাম:</span>
-                  <span className="font-bold">{toMoney(discountedPrice * totalQuantity)}</span>
+                  <span className="font-bold text-[#FAF3EE]">{toMoney(discountedPrice * totalQuantity)}</span>
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-between text-[#E8C7B0]">
                   <span>ডেলিভারি চার্জ:</span>
-                  <span className="font-bold">{toMoney(deliveryCharge)}</span>
+                  <span className="font-bold text-[#FAF3EE]">{toMoney(deliveryCharge)}</span>
                 </div>
-                <div className="flex justify-between text-sm font-bold text-[#9E3647] border-t border-[#E8D3C3] pt-1.5">
+                <div className="flex justify-between text-sm font-bold text-[#EAA4B0] border-t border-[#5E2B35] pt-1.5">
                   <span>সর্বমোট:</span>
                   <span>{toMoney(totalPrice)}</span>
                 </div>
               </div>
 
-              {orderState.error ? <p className="text-xs text-red-600 font-semibold">{orderState.error}</p> : null}
+              {orderState.error ? <p className="text-xs text-red-400 font-semibold">{orderState.error}</p> : null}
 
               <button
                 type="submit"
                 disabled={orderPending || orderItems.length === 0 || orderItems.some(item => !item.size)}
-                className="flex min-h-12 w-full items-center justify-center gap-1.5 rounded-xl bg-[#9E3647] px-4 text-sm font-bold text-white shadow-sm hover:bg-[#8B2C3B] disabled:opacity-50 transition"
+                className="flex min-h-12 w-full items-center justify-center gap-1.5 rounded-xl bg-gradient-to-r from-[#9E3647] via-[#8B2C3B] to-[#73202E] hover:from-[#B04D5F] hover:to-[#8B2C3B] px-4 text-sm font-bold text-white shadow-md disabled:opacity-50 transition"
               >
                 {orderPending ? "প্রক্রিয়াধীন..." : "কনফার্ম করুন (ক্যাশ অন ডেলিভারি)"}
               </button>
@@ -593,25 +593,25 @@ export function ProductShowcase({ product }: { product: ProductData }) {
       </section>
 
       {/* FAQ & Reviews */}
-      <div className="w-full border-t border-[#E8D3C3] bg-[#F5E6DC]/60">
+      <div className="w-full border-t border-[#5E2B35] bg-[#140608]">
         <div className="container-page mx-auto max-w-6xl space-y-6 py-8 pb-24">
           
           {/* FAQ */}
-          <section className="w-full rounded-3xl bg-white/90 p-5 shadow-xs border border-[#E8D3C3]">
-            <h2 className="text-center text-base font-bold text-[#4A121A]">সাধারণ প্রশ্নাবলী</h2>
+          <section className="w-full rounded-3xl bg-[#2D151A] p-5 shadow-lg border border-[#5E2B35]">
+            <h2 className="text-center text-base font-bold text-[#FAF3EE]">সাধারণ প্রশ্নাবলী</h2>
             <div className="mx-auto mt-4 w-full max-w-3xl space-y-2">
               {product.faqs.map((item, idx) => (
-                <div key={`${item.question}-${idx}`} className="overflow-hidden rounded-xl border border-[#E8D3C3] bg-[#FAF4EF]">
+                <div key={`${item.question}-${idx}`} className="overflow-hidden rounded-xl border border-[#5E2B35] bg-[#34161B]">
                   <button
                     type="button"
                     onClick={() => setFaqOpenIndex((prev) => (prev === idx ? null : idx))}
-                    className="flex min-h-10 w-full items-center justify-between px-4 py-2.5 text-xs font-bold text-[#4A121A] text-left"
+                    className="flex min-h-10 w-full items-center justify-between px-4 py-2.5 text-xs font-bold text-[#FAF3EE] text-left"
                   >
                     <span>{item.question}</span>
                     <span>{faqOpenIndex === idx ? "⌃" : "⌄"}</span>
                   </button>
                   {faqOpenIndex === idx ? (
-                    <p className="border-t border-[#E8D3C3] px-4 py-2.5 text-xs leading-relaxed text-[#5C1724]">
+                    <p className="border-t border-[#5E2B35] px-4 py-2.5 text-xs leading-relaxed text-[#E8C7B0]">
                       {item.answer}
                     </p>
                   ) : null}
@@ -622,14 +622,14 @@ export function ProductShowcase({ product }: { product: ProductData }) {
 
           {/* Customer Reviews */}
           {displayedReviews.length > 0 ? (
-            <section className="w-full rounded-3xl bg-white/90 p-5 shadow-xs border border-[#E8D3C3]">
-              <h2 className="text-center text-base font-bold text-[#4A121A]">গ্রাহক মতামত</h2>
+            <section className="w-full rounded-3xl bg-[#2D151A] p-5 shadow-lg border border-[#5E2B35]">
+              <h2 className="text-center text-base font-bold text-[#FAF3EE]">গ্রাহক মতামত</h2>
               <div className="mt-4 grid gap-3 sm:grid-cols-3">
                 {displayedReviews.map((rev, idx) => (
-                  <article key={`${rev.author}-${idx}`} className="flex flex-col rounded-xl border border-[#E8D3C3] bg-[#FAF4EF] p-3 text-xs">
+                  <article key={`${rev.author}-${idx}`} className="flex flex-col rounded-xl border border-[#5E2B35] bg-[#281216] p-3 text-xs">
                     <p className="text-[#D4A343] font-bold">★★★★★</p>
-                    <p className="mt-1 text-xs text-[#5C1724] leading-relaxed flex-1">{rev.text}</p>
-                    <p className="mt-2 text-[11px] font-bold text-[#7D525C]">— {rev.author}, {rev.location}</p>
+                    <p className="mt-1 text-xs text-[#E8C7B0] leading-relaxed flex-1">{rev.text}</p>
+                    <p className="mt-2 text-[11px] font-bold text-[#C49FA7]">— {rev.author}, {rev.location}</p>
                   </article>
                 ))}
               </div>
@@ -729,7 +729,7 @@ export function ProductShowcase({ product }: { product: ProductData }) {
       </a>
 
       {/* Mobile Sticky Bar */}
-      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-[#E8D3C3] bg-[#FAF3EE]/95 p-2 backdrop-blur-md md:hidden">
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-[#5E2B35] bg-[#1C0B0E]/95 p-2 backdrop-blur-md md:hidden">
         <div className="flex gap-2 max-w-6xl mx-auto">
           <a
             href="#color-selector"
@@ -751,15 +751,15 @@ export function ProductShowcase({ product }: { product: ProductData }) {
 
       {/* Success Modal */}
       {showSuccessModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4 backdrop-blur-xs">
-          <div className="relative w-full max-w-sm rounded-3xl bg-white p-5 text-center shadow-xl border border-[#E8C4CE] text-[#4A121A]">
-            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-[#FDF2F4] text-xl border border-[#E8C4CE] text-[#9E3647]">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4 backdrop-blur-xs">
+          <div className="relative w-full max-w-sm rounded-3xl bg-[#2D151A] p-5 text-center shadow-2xl border border-[#5E2B35] text-[#FAF3EE]">
+            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-[#3B1920] text-xl border border-[#5E2B35] text-[#EAA4B0]">
               🎉
             </div>
 
-            <h3 className="mt-2.5 font-display text-lg font-bold text-[#4A121A]">অর্ডারটি সফল হয়েছে!</h3>
-            <p className="mt-1 text-xs text-[#7D525C]">
-              অর্ডার আইডি: <span className="font-bold text-[#9E3647] select-all">{orderState.success?.replace("Order placed successfully: ", "")}</span>
+            <h3 className="mt-2.5 font-display text-lg font-bold text-[#FAF3EE]">অর্ডারটি সফল হয়েছে!</h3>
+            <p className="mt-1 text-xs text-[#E8C7B0]">
+              অর্ডার আইডি: <span className="font-bold text-[#EAA4B0] select-all">{orderState.success?.replace("Order placed successfully: ", "")}</span>
             </p>
 
             <button
