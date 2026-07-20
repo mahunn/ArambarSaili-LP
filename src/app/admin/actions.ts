@@ -77,7 +77,8 @@ export async function updateVariantData(formData: FormData) {
       try {
         const blob = await put(`arambarsaili/uploads/${Date.now()}-${safeFileName(file.name)}`, file, {
           access: "public",
-          addRandomSuffix: false
+          addRandomSuffix: false,
+          cacheControlMaxAge: 31536000
         });
         data.variants[variantIndex].images.push(blob.url);
       } catch (err: any) {
@@ -86,7 +87,8 @@ export async function updateVariantData(formData: FormData) {
           console.warn("[updateVariantData] Public access failed on private store, retrying with private access.");
           const blob = await put(`arambarsaili/uploads/${Date.now()}-${safeFileName(file.name)}`, file, {
             access: "private",
-            addRandomSuffix: false
+            addRandomSuffix: false,
+            cacheControlMaxAge: 31536000
           });
           data.variants[variantIndex].images.push(blob.url);
         } else {
@@ -185,7 +187,8 @@ export async function uploadVariantImage(formData: FormData) {
     try {
       const blob = await put(`arambarsaili/uploads/${Date.now()}-${safeFileName(file.name)}`, file, {
         access: "public",
-        addRandomSuffix: false
+        addRandomSuffix: false,
+        cacheControlMaxAge: 31536000
       });
       data.variants[variantIndex].images.push(blob.url);
     } catch (err: any) {
@@ -194,7 +197,8 @@ export async function uploadVariantImage(formData: FormData) {
         console.warn("[uploadVariantImage] Public access failed on private store, retrying with private access.");
         const blob = await put(`arambarsaili/uploads/${Date.now()}-${safeFileName(file.name)}`, file, {
           access: "private",
-          addRandomSuffix: false
+          addRandomSuffix: false,
+          cacheControlMaxAge: 31536000
         });
         data.variants[variantIndex].images.push(blob.url);
       } else {
@@ -227,23 +231,21 @@ export async function removeVariantImage(formData: FormData) {
   if (imageIndex < 0 || imageIndex >= data.variants[variantIndex].images.length) return;
 
   const [removed] = data.variants[variantIndex].images.splice(imageIndex, 1);
-  if (removed?.startsWith("/uploads/")) {
-    const localPath = path.join(process.cwd(), "public", removed.replace(/^\//, ""));
-    try {
-      await fs.unlink(localPath);
-    } catch {
-      // File may already be removed; ignore and continue.
-    }
-  } else if (removed && useBlobJsonPersistence()) {
-    try {
-      await del(removed);
-    } catch {
-      // File may already be removed or invalid; ignore and continue.
-    }
-  }
 
+  // Write product data immediately so image is removed from JSON instantly
   await writeProductData(data);
   revalidateAdminPaths();
+
+  // Background non-blocking file deletion
+  if (removed?.startsWith("/uploads/")) {
+    const localPath = path.join(process.cwd(), "public", removed.replace(/^\//, ""));
+    fs.unlink(localPath).catch(() => {});
+  } else if (removed && useBlobJsonPersistence()) {
+    del(removed).catch((err) => {
+      console.warn("[removeVariantImage] Background blob deletion error:", err);
+    });
+  }
+
   redirect(withNotice("/admin/product", "ছবি মুছে ফেলা হয়েছে"));
 }
 

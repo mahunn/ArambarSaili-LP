@@ -179,37 +179,33 @@ export default async function AdminProductPage() {
                                     <input type="hidden" name="variantIndex" value={idx} />
                                     <input type="hidden" name="imageIndex" value={imageIndex} />
                                     <input type="hidden" name="direction" value="up" />
-                                    <button
-                                      disabled={imageIndex === 0}
-                                      title="আগে নিন"
-                                      className="flex h-7 w-7 items-center justify-center rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 disabled:opacity-40 disabled:hover:bg-slate-100 transition text-xs"
-                                    >
-                                      ◀
-                                    </button>
+                                    <AdminSubmitButton
+                                      label="◀"
+                                      pendingLabel="…"
+                                      className="flex h-7 w-7 items-center justify-center rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 disabled:opacity-40 transition text-xs font-bold"
+                                    />
                                   </form>
                                   <form action={moveVariantImage}>
                                     <input type="hidden" name="variantIndex" value={idx} />
                                     <input type="hidden" name="imageIndex" value={imageIndex} />
                                     <input type="hidden" name="direction" value="down" />
-                                    <button
-                                      disabled={imageIndex === variant.images.length - 1}
-                                      title="পরে নিন"
-                                      className="flex h-7 w-7 items-center justify-center rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 disabled:opacity-40 disabled:hover:bg-slate-100 transition text-xs"
-                                    >
-                                      ▶
-                                    </button>
+                                    <AdminSubmitButton
+                                      label="▶"
+                                      pendingLabel="…"
+                                      className="flex h-7 w-7 items-center justify-center rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 disabled:opacity-40 transition text-xs font-bold"
+                                    />
                                   </form>
                                 </div>
 
                                 <form action={removeVariantImage}>
                                   <input type="hidden" name="variantIndex" value={idx} />
                                   <input type="hidden" name="imageIndex" value={imageIndex} />
-                                  <button
-                                    title="ছবি মুছুন"
+                                  <ConfirmSubmitButton
+                                    label="মুছুন"
+                                    pendingLabel="মুছা হচ্ছে..."
                                     className="flex h-7 px-2 items-center justify-center rounded-lg border border-red-200 bg-red-50 hover:bg-red-100 text-xs font-bold text-red-700 transition"
-                                  >
-                                    মুছুন
-                                  </button>
+                                    confirmText="এই ছবি মুছে ফেলতে চান?"
+                                  />
                                 </form>
                               </div>
                             </div>

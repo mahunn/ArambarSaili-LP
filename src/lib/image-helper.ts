@@ -4,8 +4,8 @@
  */
 export function getDisplayImageUrl(url: string | undefined | null): string {
   if (!url) return "";
-  // Check if it's a vercel storage URL
-  if (url.includes("vercel-storage.com")) {
+  // Route through proxy only if store access is explicitly set to private
+  if (process.env.BLOB_JSON_ACCESS === "private" && url.includes("vercel-storage.com")) {
     return `/api/blob-image?url=${encodeURIComponent(url)}`;
   }
   return url;
