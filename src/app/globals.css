@@ -13,13 +13,12 @@ html, body {
 
 body {
   font-family: var(--font-ui), Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-  @apply bg-[#061310] text-slate-100;
+  @apply bg-[#18080A] text-[#F5E6D8];
 }
 
 input, textarea, select {
   color: #0f172a;
 }
-
 
 .container-page {
   @apply mx-auto max-w-6xl px-4 md:px-6;
@@ -30,7 +29,7 @@ input, textarea, select {
 }
 
 .admin-btn-primary {
-  @apply min-h-12 rounded-2xl bg-gradient-to-b from-emerald-600 to-teal-700 px-4 py-3 text-sm font-semibold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] hover:from-emerald-500 hover:to-teal-600;
+  @apply min-h-12 rounded-2xl bg-gradient-to-b from-amber-600 to-amber-700 px-4 py-3 text-sm font-semibold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] hover:from-amber-500 hover:to-amber-600;
 }
 
 .admin-btn-dark {
@@ -38,7 +37,7 @@ input, textarea, select {
 }
 
 .admin-input {
-  @apply min-h-12 w-full rounded-2xl border border-transparent bg-zinc-100 px-4 py-3 text-sm outline-none focus:border-emerald-300 focus:bg-white focus:ring-2 focus:ring-emerald-100;
+  @apply min-h-12 w-full rounded-2xl border border-transparent bg-zinc-100 px-4 py-3 text-sm outline-none focus:border-amber-300 focus:bg-white focus:ring-2 focus:ring-amber-100;
 }
 
 .font-display {
