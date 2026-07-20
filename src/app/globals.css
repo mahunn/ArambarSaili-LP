@@ -12,8 +12,8 @@ html, body {
 }
 
 body {
-  font-family: var(--font-bengali), var(--font-ui), Inter, system-ui, -apple-system, sans-serif;
-  @apply bg-[#FAF3EE] text-[#4A121A] antialiased;
+  font-family: var(--font-ui), Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  @apply bg-[#FAF3EE] text-[#4A121A] antialiased selection:bg-[#9E3647] selection:text-white;
 }
 
 input, textarea, select {
@@ -22,76 +22,6 @@ input, textarea, select {
 
 .container-page {
   @apply mx-auto max-w-6xl px-4 md:px-6;
-}
-
-.font-display {
-  font-family: var(--font-display), var(--font-bengali), Inter, system-ui, -apple-system, sans-serif;
-}
-
-.font-bengali {
-  font-family: var(--font-bengali), var(--font-ui), system-ui, -apple-system, sans-serif;
-}
-
-/* Custom Luxury Glassmorphism & Shadow Utilities */
-.luxury-card {
-  @apply bg-white/95 rounded-[2rem] border border-[#E8D3C3] shadow-[0_15px_45px_rgba(74,18,26,0.06)] backdrop-blur-md transition-all duration-300;
-}
-
-.luxury-card-hover {
-  @apply hover:shadow-[0_20px_50px_rgba(74,18,26,0.12)] hover:border-[#D4A343]/60;
-}
-
-.golden-glow {
-  box-shadow: 0 0 25px rgba(212, 163, 67, 0.25);
-}
-
-.rose-glow {
-  box-shadow: 0 0 30px rgba(158, 54, 71, 0.2);
-}
-
-/* Shimmer Animation */
-@keyframes shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
-}
-
-.animate-shimmer {
-  background: linear-gradient(90deg, rgba(212, 163, 67, 0.1) 0%, rgba(212, 163, 67, 0.4) 50%, rgba(212, 163, 67, 0.1) 100%);
-  background-size: 200% 100%;
-  animation: shimmer 3s infinite linear;
-}
-
-/* Pulse Glow Animation */
-@keyframes pulseGlow {
-  0%, 100% { opacity: 0.8; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.03); }
-}
-
-.animate-pulseGlow {
-  animation: pulseGlow 2.5s infinite ease-in-out;
-}
-
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #FAF3EE;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #D4A343;
-  border-radius: 9999px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #9E3647;
 }
 
 .admin-card {
@@ -108,4 +38,28 @@ input, textarea, select {
 
 .admin-input {
   @apply min-h-12 w-full rounded-2xl border border-[#E8D3C3] bg-[#FAF4EF] px-4 py-3 text-sm outline-none focus:border-[#9E3647] focus:bg-white focus:ring-2 focus:ring-[#9E3647]/20;
+}
+
+.font-display {
+  font-family: var(--font-display), var(--font-ui), Inter, system-ui, -apple-system, sans-serif;
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(158, 54, 71, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 20px 4px rgba(158, 54, 71, 0.25);
+  }
+}
+
+.animate-pulseGlow {
+  animation: pulseGlow 3s infinite ease-in-out;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(232, 211, 195, 0.85);
+  box-shadow: 0 10px 40px -10px rgba(74, 18, 26, 0.05);
 }
