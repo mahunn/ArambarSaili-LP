@@ -2,6 +2,9 @@ import { redirect } from "next/navigation";
 import { isAuthenticated } from "@/lib/auth";
 import { fetchAdsData } from "@/lib/meta-ads";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 function fmt(n: string | number, decimals = 0): string {
   const num = typeof n === "string" ? parseFloat(n) : n;
   if (isNaN(num)) return "—";

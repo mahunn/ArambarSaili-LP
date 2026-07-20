@@ -1,8 +1,12 @@
 import { redirect } from "next/navigation";
 import { addFaq, removeFaq, updateFaq } from "@/app/admin/actions";
 import { ConfirmSubmitButton } from "@/components/admin/confirm-submit-button";
+import { AdminSubmitButton } from "@/components/admin/admin-submit-button";
 import { isAuthenticated } from "@/lib/auth";
 import { readProductData } from "@/lib/product-store";
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export default async function AdminCmsPage() {
   const authed = await isAuthenticated();
@@ -18,7 +22,7 @@ export default async function AdminCmsPage() {
           <p className="text-sm text-slate-500">প্রোডাক্ট পেজের FAQ সেকশন এখান থেকে ম্যানেজ করুন।</p>
         </div>
         <form action={addFaq}>
-          <button className="admin-btn-primary">+ নতুন FAQ</button>
+          <AdminSubmitButton label="+ নতুন FAQ" pendingLabel="যোগ হচ্ছে..." />
         </form>
       </div>
 
@@ -31,6 +35,7 @@ export default async function AdminCmsPage() {
                 <input type="hidden" name="faqIndex" value={idx} />
                 <ConfirmSubmitButton
                   label="মুছুন"
+                  pendingLabel="মুছা হচ্ছে..."
                   className="rounded-2xl border border-red-200 bg-red-50 px-3 py-2 text-xs font-semibold text-red-800"
                   confirmText="এই FAQ মুছে ফেলতে চান?"
                 />
@@ -40,7 +45,7 @@ export default async function AdminCmsPage() {
               <input type="hidden" name="faqIndex" value={idx} />
               <input name="question" defaultValue={faq.question} placeholder="প্রশ্ন" className="admin-input" />
               <textarea name="answer" defaultValue={faq.answer} placeholder="উত্তর" className="admin-input h-24" />
-              <button className="admin-btn-dark">সেভ FAQ</button>
+              <AdminSubmitButton label="সেভ FAQ" pendingLabel="সেভ করা হচ্ছে..." className="admin-btn-dark" />
             </form>
           </article>
         ))}

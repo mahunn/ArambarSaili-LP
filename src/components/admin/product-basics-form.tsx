@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { AdminSubmitButton } from "@/components/admin/admin-submit-button";
 import type { ProductData } from "@/lib/product-store";
 
 function coerceDiscountType(v: string | undefined): ProductData["discountType"] {
@@ -137,7 +138,7 @@ export function ProductBasicsForm({ product, action }: ProductBasicsFormProps) {
         </a>
       </div>
 
-      <button className="admin-btn-primary">সেভ করুন</button>
+      <AdminSubmitButton label="সেভ করুন" pendingLabel="সেভ করা হচ্ছে..." />
     </form>
   );
 }

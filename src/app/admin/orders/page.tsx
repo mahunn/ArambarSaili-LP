@@ -8,6 +8,9 @@ import { formatDateTimeDhaka } from "@/lib/datetime-bd";
 import { readOrders } from "@/lib/order-store";
 import { toBdInternationalDigits } from "@/lib/phone-bd";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 type OrdersPageProps = {
   searchParams?: Promise<{
     q?: string;

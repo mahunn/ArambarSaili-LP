@@ -8,10 +8,14 @@ import {
   updateVariantData
 } from "@/app/admin/actions";
 import { ConfirmSubmitButton } from "@/components/admin/confirm-submit-button";
+import { AdminSubmitButton } from "@/components/admin/admin-submit-button";
 import { ProductBasicsForm } from "@/components/admin/product-basics-form";
 import { isAuthenticated } from "@/lib/auth";
 import { readProductData } from "@/lib/product-store";
 import { getDisplayImageUrl } from "@/lib/image-helper";
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export default async function AdminProductPage() {
   const authed = await isAuthenticated();
@@ -86,6 +90,7 @@ export default async function AdminProductPage() {
                         <input type="hidden" name="variantIndex" value={idx} />
                         <ConfirmSubmitButton
                           label="মুছুন"
+                          pendingLabel="মুছা হচ্ছে..."
                           className="rounded-xl border border-red-200 bg-red-50 hover:bg-red-100 px-3 py-1.5 text-xs font-bold text-red-700 transition"
                           confirmText="এই কালার ভ্যারিয়েন্ট এবং এর সব ছবি মুছে ফেলতে চান?"
                         />
@@ -133,9 +138,11 @@ export default async function AdminProductPage() {
                         <p className="text-[10px] text-slate-400 mt-1">পণ্যটির কোনো নতুন ছবি যোগ করতে চাইলে এখান থেকে ফাইল সিলেক্ট করুন।</p>
                       </div>
 
-                      <button className="w-full min-h-11 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-sm hover:shadow-md transition duration-200">
-                        ভ্যারিয়েন্ট আপডেট করুন (সেভ)
-                      </button>
+                      <AdminSubmitButton
+                        label="ভ্যারিয়েন্ট আপডেট করুন (সেভ)"
+                        pendingLabel="আপডেট করা হচ্ছে..."
+                        className="w-full min-h-11 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-sm hover:shadow-md transition duration-200"
+                      />
                     </form>
 
                     {/* Manage uploaded images */}
@@ -221,9 +228,11 @@ export default async function AdminProductPage() {
 
             {/* Add new variant */}
             <form action={addVariant} className="pt-2">
-              <button className="w-full min-h-12 rounded-2xl border-2 border-dashed border-emerald-300 hover:border-emerald-500 bg-emerald-50/30 hover:bg-emerald-50/70 text-emerald-700 font-bold text-sm transition duration-200 flex items-center justify-center gap-1.5">
-                <span>➕</span> নতুন কালার ভ্যারিয়েন্ট যোগ করুন
-              </button>
+              <AdminSubmitButton
+                label="➕ নতুন কালার ভ্যারিয়েন্ট যোগ করুন"
+                pendingLabel="যোগ করা হচ্ছে..."
+                className="w-full min-h-12 rounded-2xl border-2 border-dashed border-emerald-300 hover:border-emerald-500 bg-emerald-50/30 hover:bg-emerald-50/70 text-emerald-700 font-bold text-sm transition duration-200 flex items-center justify-center gap-1.5"
+              />
             </form>
           </div>
         </section>

@@ -3,6 +3,9 @@ import { Suspense } from "react";
 import { AdminToast } from "@/components/admin/admin-toast";
 import { AdminNav } from "@/components/admin/admin-nav";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default async function AdminLayout({
   children
 }: Readonly<{ children: React.ReactNode }>) {

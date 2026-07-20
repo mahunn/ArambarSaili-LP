@@ -13,12 +13,12 @@ html, body {
 
 body {
   font-family: var(--font-bangla), var(--font-ui), "Hind Siliguri", "Noto Sans Bengali", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-  @apply bg-[#18080A] text-[#FAF3EE] antialiased selection:bg-[#9E3647] selection:text-white;
+  @apply bg-[#FAF3EE] text-[#4A121A] antialiased selection:bg-[#9E3647] selection:text-white;
 }
 
 input, textarea, select {
   font-family: var(--font-bangla), var(--font-ui), "Hind Siliguri", sans-serif;
-  color: #faf3ee;
+  color: #2c0e14;
 }
 
 .container-page {
@@ -38,7 +38,7 @@ input, textarea, select {
 }
 
 .admin-input {
-  @apply min-h-12 w-full rounded-2xl border border-[#5E2B35] bg-[#34161B] px-4 py-3 text-sm outline-none focus:border-[#9E3647] focus:bg-[#3D1A21] focus:ring-2 focus:ring-[#9E3647]/20;
+  @apply min-h-12 w-full rounded-2xl border border-[#E8D3C3] bg-[#FAF4EF] px-4 py-3 text-sm outline-none focus:border-[#9E3647] focus:bg-white focus:ring-2 focus:ring-[#9E3647]/20;
 }
 
 .font-display {
@@ -59,8 +59,8 @@ input, textarea, select {
 }
 
 .glass-card {
-  background: rgba(45, 21, 26, 0.95);
+  background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(94, 43, 53, 0.8);
-  box-shadow: 0 12px 40px -10px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(232, 211, 195, 0.85);
+  box-shadow: 0 10px 40px -10px rgba(74, 18, 26, 0.05);
 }
