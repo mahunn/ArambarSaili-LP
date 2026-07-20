@@ -262,9 +262,9 @@ export function ProductShowcase({ product }: { product: ProductData }) {
             </a>
             <a
               href={whatsappLink}
-              className="inline-flex min-h-9 sm:min-h-11 items-center gap-1.5 sm:gap-2 rounded-full bg-[#25D366] px-2.5 sm:px-4 py-1.5 sm:py-2.5 text-xs sm:text-sm font-semibold text-white shadow-md shadow-black/10 transition hover:bg-[#20BD5A] hover:shadow-lg"
+              className="inline-flex min-h-7 sm:min-h-8 items-center gap-1 sm:gap-1.5 rounded-full bg-[#25D366] px-2 sm:px-3 py-1 text-[11px] sm:text-xs font-semibold text-white shadow-sm transition hover:bg-[#20BD5A] hover:shadow-md"
             >
-              <WhatsAppIcon className="h-4 w-4 sm:h-5 sm:w-5 shrink-0 text-white" />
+              <WhatsAppIcon className="h-3.5 w-3.5 sm:h-4 sm:w-4 shrink-0 text-white" />
               WhatsApp
             </a>
           </div>
