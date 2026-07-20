@@ -1,0 +1,62 @@
+{
+  "title": "Premium Gown One Piece",
+  "description": "Soft premium fabric gown with elegant finish.",
+  "basePrice": 1000,
+  "discountType": "percent",
+  "discountValue": 10,
+  "whatsappNumber": "01918764460",
+  "callNumber": "01918764460",
+  "variants": [
+    {
+      "colorName": "Navy Blue",
+      "sizes": [
+        "M",
+        "L",
+        "XL"
+      ],
+      "images": [
+        "/uploads/1778589955676-pindress.jpg"
+      ]
+    },
+    {
+      "colorName": "Color 3",
+      "sizes": [
+        "M",
+        "L"
+      ],
+      "images": [
+        "/uploads/1778589686495-WhatsApp_Image_2026-05-12_at_12.20.57_AM__1_.jpeg"
+      ]
+    }
+  ],
+  "faqs": [
+    {
+      "question": "ডেলিভারি কত দিনে হবে?",
+      "answer": "ঢাকার ভেতরে ১-২ দিন, ঢাকার বাইরে ২-৪ কার্যদিবস।"
+    },
+    {
+      "question": "পেমেন্ট কিভাবে করব?",
+      "answer": "ক্যাশ অন ডেলিভারি ।"
+    }
+  ],
+  "reviews": [
+    {
+      "author": "রিমি",
+      "location": "ঢাকা",
+      "rating": 5,
+      "text": "কাপড়ের কোয়ালিটি খুব ভালো, ছবির মতোই পেয়েছি।"
+    },
+    {
+      "author": "মৌ",
+      "location": "সিলেট",
+      "rating": 5,
+      "text": "ফিটিং ও রঙ দারুণ। ডেলিভারি সময়মতো হয়েছে।"
+    },
+    {
+      "author": "তৃষা",
+      "location": "চট্টগ্রাম",
+      "rating": 4,
+      "text": "প্যাকেজিং সুন্দর ছিল, সার্ভিসও ভালো।"
+    }
+  ]
+}
