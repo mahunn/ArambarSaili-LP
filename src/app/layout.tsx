@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Inter, Hind_Siliguri, Noto_Sans_Bengali } from "next/font/google";
 import { Suspense } from "react";
 import { MetaPixel } from "@/components/meta-pixel";
 import "./globals.css";
@@ -23,8 +23,15 @@ const inter = Inter({
   variable: "--font-ui"
 });
 
-const playfair = Playfair_Display({
-  subsets: ["latin"],
+const hindSiliguri = Hind_Siliguri({
+  subsets: ["bengali", "latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-bangla"
+});
+
+const notoSansBengali = Noto_Sans_Bengali({
+  subsets: ["bengali", "latin"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-display"
 });
 
@@ -32,8 +39,8 @@ export default function RootLayout({
   children
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} ${playfair.variable}`} suppressHydrationWarning>
+    <html lang="bn" suppressHydrationWarning>
+      <body className={`${inter.variable} ${hindSiliguri.variable} ${notoSansBengali.variable}`} suppressHydrationWarning>
         {/* Facebook Pixel — loads after interactive, tracks every route change */}
         <Suspense fallback={null}>
           <MetaPixel
