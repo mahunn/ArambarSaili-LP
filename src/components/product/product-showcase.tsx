@@ -240,14 +240,17 @@ export function ProductShowcase({ product }: { product: ProductData }) {
       <div className="w-full max-w-full overflow-x-hidden relative flex flex-col min-h-screen">
       <header className="sticky top-0 z-30 border-b border-[#E8D3C3] bg-gradient-to-b from-[#FAF3EE] to-[#F5E6DC]/95 shadow-[0_2px_15px_rgba(74,18,26,0.04)] backdrop-blur-md">
         <div className="container-page flex min-h-12 sm:min-h-14 items-center justify-between gap-1.5 sm:gap-3 py-1.5 sm:py-2.5">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3 sm:gap-4">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/logo.jpeg"
               alt={companyName}
-              className="h-8 w-8 sm:h-10 sm:w-10 rounded-full object-cover shadow-md ring-2 ring-[#D4A343]/60 ring-offset-2 ring-offset-[#FAF3EE]"
+              className="h-12 w-12 sm:h-16 sm:w-16 md:h-20 md:w-20 rounded-full object-cover shadow-lg ring-2 sm:ring-4 ring-[#D4A343]/60 ring-offset-2 ring-offset-[#FAF3EE] shrink-0"
             />
-            <p className="font-display text-sm sm:text-base md:text-lg font-bold tracking-tight text-[#4A121A]">{companyName}</p>
+            <div>
+              <p className="font-display text-base sm:text-lg md:text-xl font-bold tracking-tight text-[#4A121A]">{companyName}</p>
+              <p className="text-[10px] sm:text-xs font-semibold text-[#8B2C3B] tracking-wide">রুচিশীলতা তোমার, আড়ম্বর শৈলী সবার</p>
+            </div>
           </div>
           <div className="flex items-center gap-2 sm:gap-3">
             <a
@@ -823,16 +826,16 @@ export function ProductShowcase({ product }: { product: ProductData }) {
         <div className="container-page relative mx-auto py-14 md:py-20 lg:py-24">
           <div className="flex flex-col items-center justify-center text-center gap-8">
             <div className="flex flex-col items-center justify-center max-w-lg">
-              <div className="flex flex-col items-center gap-3">
+              <div className="flex flex-col items-center gap-4">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="/logo.jpeg"
-                  alt=""
-                  className="h-12 w-12 rounded-full object-cover shadow-lg ring-2 ring-[#D4A343]/60 ring-offset-2 ring-offset-[#2D0A12]"
+                  alt={companyName}
+                  className="h-24 w-24 sm:h-28 sm:w-28 md:h-36 md:w-36 rounded-full object-cover shadow-2xl ring-4 ring-[#D4A343]/70 ring-offset-4 ring-offset-[#2D0A12]"
                 />
-                <div>
-                  <p className="font-display text-2xl font-semibold tracking-tight text-[#FAF3EE] md:text-3xl">{companyName}</p>
-                  <p className="mt-0.5 text-[11px] font-medium uppercase tracking-[0.28em] text-[#E8C7B0]">Premium fashion</p>
+                <div className="text-center">
+                  <p className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-[#FAF3EE] md:text-4xl">{companyName}</p>
+                  <p className="mt-1 text-xs sm:text-sm font-semibold tracking-wider text-[#D4A343]">রুচিশীলতা তোমার, আড়ম্বর শৈলী সবার</p>
                 </div>
               </div>
 
