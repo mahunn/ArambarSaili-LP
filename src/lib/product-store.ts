@@ -171,6 +171,12 @@ export async function writeProductData(data: ProductData): Promise<void> {
   const json = JSON.stringify(data, null, 2);
   if (useBlobJsonPersistence()) {
     await writeTextBlob(PRODUCT_JSON_BLOB_PATH, json);
+    try {
+      await ensureDataFile();
+      await fs.writeFile(DATA_FILE, json, "utf-8");
+    } catch {
+      // Ignore if filesystem is read-only
+    }
     return;
   }
   if (process.env.VERCEL) {

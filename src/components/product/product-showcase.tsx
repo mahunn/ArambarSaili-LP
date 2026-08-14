@@ -4,7 +4,7 @@ import { useActionState, useEffect, useMemo, useState } from "react";
 import { placeOrderAction } from "@/app/order-actions";
 import { formatBdLocalDisplay, toBdInternationalDigits } from "@/lib/phone-bd";
 import type { ProductData } from "@/lib/product-store";
-import { trackPurchase } from "@/components/meta-pixel";
+import { trackPurchase, trackViewContent, trackInitiateCheckout } from "@/components/meta-pixel";
 import { getDisplayImageUrl } from "@/lib/image-helper";
 import type { OrderItem } from "@/lib/order-store";
 
@@ -193,6 +193,26 @@ export function ProductShowcase({ product }: { product: ProductData }) {
     });
   };
 
+  // Track ViewContent on product load
+  useEffect(() => {
+    trackViewContent({
+      contentName: product.title,
+      value: discountedPrice,
+      currency: "BDT"
+    });
+  }, [product.title, discountedPrice]);
+
+  const [hasInitiatedCheckout, setHasInitiatedCheckout] = useState(false);
+  const handleInitiateCheckout = () => {
+    if (!hasInitiatedCheckout) {
+      setHasInitiatedCheckout(true);
+      trackInitiateCheckout({
+        value: totalPrice > 0 ? totalPrice : discountedPrice,
+        currency: "BDT"
+      });
+    }
+  };
+
   useEffect(() => {
     if (orderState.success) {
       setShowSuccessModal(true);
@@ -326,6 +346,10 @@ export function ProductShowcase({ product }: { product: ProductData }) {
                           onClick={() => {
                             setActiveVariantIndex(vIdx);
                             setImageIndex(imgIdx);
+                            setSelectedColors((prev) => ({ ...prev, [variant.colorName]: true }));
+                            if (!selectedSizes[variant.colorName] && variant.sizes.length > 0) {
+                              setSelectedSizes((sPrev) => ({ ...sPrev, [variant.colorName]: variant.sizes[0] }));
+                            }
                           }}
                           className={`relative h-16 w-14 shrink-0 overflow-hidden rounded-xl border-2 transition-all ${
                             selected ? "border-[#9E3647]" : "border-[#E8D3C3] opacity-80"
@@ -377,6 +401,7 @@ export function ProductShowcase({ product }: { product: ProductData }) {
               {/* Quick Action Button */}
               <a
                 href="#color-selector"
+                onClick={handleInitiateCheckout}
                 className="mt-4 flex min-h-11 w-full items-center justify-center gap-2 rounded-2xl bg-[#9E3647] px-4 py-2.5 text-sm font-bold text-white shadow-sm hover:bg-[#8B2C3B] transition"
               >
                 অর্ডার করুন
@@ -472,6 +497,7 @@ export function ProductShowcase({ product }: { product: ProductData }) {
             <form
               id="order-form"
               action={orderAction}
+              onFocusCapture={handleInitiateCheckout}
               className="glass-card rounded-3xl p-5 shadow-xs border border-[#E8D3C3] space-y-3.5"
             >
               <p className="text-sm font-bold text-[#4A121A] border-b border-[#E8D3C3]/60 pb-2">২. আপনার ডেলিভারি তথ্য</p>
@@ -733,6 +759,7 @@ export function ProductShowcase({ product }: { product: ProductData }) {
         <div className="flex gap-2 max-w-6xl mx-auto">
           <a
             href="#color-selector"
+            onClick={handleInitiateCheckout}
             className="min-h-10 flex-1 rounded-lg bg-[#9E3647] px-3 py-2 text-center text-xs font-bold text-white shadow-xs flex items-center justify-center"
           >
             অর্ডার করুন

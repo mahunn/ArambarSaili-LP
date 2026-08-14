@@ -100,6 +100,12 @@ export async function writeOrders(orders: OrderData[]): Promise<void> {
   const json = JSON.stringify(orders, null, 2);
   if (useBlobJsonPersistence()) {
     await writeTextBlob(ORDERS_JSON_BLOB_PATH, json);
+    try {
+      await ensureOrdersFile();
+      await fs.writeFile(ORDERS_FILE, json, "utf-8");
+    } catch {
+      // Ignore if filesystem is read-only
+    }
     return;
   }
   if (process.env.VERCEL) {
