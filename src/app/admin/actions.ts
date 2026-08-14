@@ -101,79 +101,99 @@ function parseDiscountType(raw: FormDataEntryValue | null): "none" | "flat" | "p
   return "none";
 }
 
-export async function saveCompleteProductAction(formData: FormData) {
-  const current = await readProductData();
+export type SaveProductResult = {
+  success: boolean;
+  message?: string;
+  error?: string;
+  updatedProduct?: ProductData;
+};
 
-  const title = String(formData.get("title") ?? "").trim().slice(0, 120);
-  const description = String(formData.get("description") ?? "").trim().slice(0, 1500);
-  const basePrice = Math.max(0, Number(formData.get("basePrice") ?? 0));
-  const discountType = parseDiscountType(formData.get("discountType"));
-  let discountValue = Math.max(0, Number(formData.get("discountValue") ?? 0));
-  if (discountType === "percent") {
-    discountValue = Math.min(discountValue, 100);
-  }
-  const whatsappNumber = String(formData.get("whatsappNumber") ?? "").replace(/\D/g, "").slice(0, 20);
-  const callNumber = String(formData.get("callNumber") ?? "").replace(/\D/g, "").slice(0, 20);
-
-  // Parse variants JSON structure
-  const rawVariantsJson = String(formData.get("variantsJson") ?? "[]");
-  let parsedVariants: Array<{
-    id: string;
-    colorName: string;
-    sizes: string[];
-    existingImages: string[];
-  }> = [];
-
+export async function saveCompleteProductAction(formData: FormData): Promise<SaveProductResult> {
   try {
-    parsedVariants = JSON.parse(rawVariantsJson);
-  } catch (err) {
-    console.error("Failed to parse variants JSON:", err);
+    const current = await readProductData();
+
+    const title = String(formData.get("title") ?? "").trim().slice(0, 120);
+    const description = String(formData.get("description") ?? "").trim().slice(0, 1500);
+    const basePrice = Math.max(0, Number(formData.get("basePrice") ?? 0));
+    const discountType = parseDiscountType(formData.get("discountType"));
+    let discountValue = Math.max(0, Number(formData.get("discountValue") ?? 0));
+    if (discountType === "percent") {
+      discountValue = Math.min(discountValue, 100);
+    }
+    const whatsappNumber = String(formData.get("whatsappNumber") ?? "").replace(/\D/g, "").slice(0, 20);
+    const callNumber = String(formData.get("callNumber") ?? "").replace(/\D/g, "").slice(0, 20);
+
+    // Parse variants JSON structure
+    const rawVariantsJson = String(formData.get("variantsJson") ?? "[]");
+    let parsedVariants: Array<{
+      id: string;
+      colorName: string;
+      sizes: string[];
+      existingImages: string[];
+    }> = [];
+
+    try {
+      parsedVariants = JSON.parse(rawVariantsJson);
+    } catch (err) {
+      console.error("Failed to parse variants JSON:", err);
+    }
+
+    if (!Array.isArray(parsedVariants) || parsedVariants.length === 0) {
+      return { success: false, error: "কমপক্ষে ১টি কালার ভ্যারিয়েন্ট থাকতে হবে।" };
+    }
+
+    const finalVariants: ProductVariant[] = [];
+
+    for (let i = 0; i < parsedVariants.length; i++) {
+      const v = parsedVariants[i];
+      const colorName = String(v.colorName ?? `Color ${i + 1}`).trim() || `Color ${i + 1}`;
+      const sizes = Array.isArray(v.sizes) && v.sizes.length > 0 ? v.sizes : ["M", "L", "XL"];
+      const existingImages = Array.isArray(v.existingImages) ? v.existingImages.filter(Boolean) : [];
+
+      // Check newly uploaded files for this variant: files_<id> or files_<i>
+      const newFiles = [
+        ...(formData.getAll(`files_${v.id}`) as File[]),
+        ...(formData.getAll(`files_${i}`) as File[])
+      ].filter((f) => f && f instanceof File && f.size > 0);
+
+      const uploadedUrls = await saveUploadedFiles(newFiles);
+      const combinedImages = [...existingImages, ...uploadedUrls];
+
+      finalVariants.push({
+        colorName,
+        sizes,
+        images: combinedImages
+      });
+    }
+
+    const updatedProduct: ProductData = {
+      title: title || current.title,
+      description: description || current.description,
+      basePrice: basePrice > 0 ? basePrice : current.basePrice,
+      discountType,
+      discountValue,
+      whatsappNumber: whatsappNumber || current.whatsappNumber,
+      callNumber: callNumber || current.callNumber,
+      variants: finalVariants,
+      faqs: current.faqs,
+      reviews: current.reviews
+    };
+
+    await writeProductData(updatedProduct);
+    revalidateAdminPaths();
+
+    return {
+      success: true,
+      message: "পণ্যের সকল তথ্য ও কালার ভ্যারিয়েন্ট সফলভাবে সেভ হয়েছে!",
+      updatedProduct
+    };
+  } catch (err: any) {
+    console.error("[saveCompleteProductAction] Error:", err);
+    return {
+      success: false,
+      error: err?.message || "পণ্য সংরক্ষণ করা সম্ভব হয়নি। একটু পরে আবার চেষ্টা করুন।"
+    };
   }
-
-  if (!Array.isArray(parsedVariants) || parsedVariants.length === 0) {
-    redirect(withNotice("/admin/product", "কমপক্ষে ১টি কালার ভ্যারিয়েন্ট থাকতে হবে", "error"));
-  }
-
-  const finalVariants: ProductVariant[] = [];
-
-  for (let i = 0; i < parsedVariants.length; i++) {
-    const v = parsedVariants[i];
-    const colorName = String(v.colorName ?? `Color ${i + 1}`).trim() || `Color ${i + 1}`;
-    const sizes = Array.isArray(v.sizes) && v.sizes.length > 0 ? v.sizes : ["M", "L", "XL"];
-    const existingImages = Array.isArray(v.existingImages) ? v.existingImages.filter(Boolean) : [];
-
-    // Check newly uploaded files for this variant: files_<id> or files_<i>
-    const newFiles = [
-      ...(formData.getAll(`files_${v.id}`) as File[]),
-      ...(formData.getAll(`files_${i}`) as File[])
-    ].filter((f) => f && f instanceof File && f.size > 0);
-
-    const uploadedUrls = await saveUploadedFiles(newFiles);
-    const combinedImages = [...existingImages, ...uploadedUrls];
-
-    finalVariants.push({
-      colorName,
-      sizes,
-      images: combinedImages
-    });
-  }
-
-  const updatedProduct: ProductData = {
-    title: title || current.title,
-    description: description || current.description,
-    basePrice: basePrice > 0 ? basePrice : current.basePrice,
-    discountType,
-    discountValue,
-    whatsappNumber: whatsappNumber || current.whatsappNumber,
-    callNumber: callNumber || current.callNumber,
-    variants: finalVariants,
-    faqs: current.faqs,
-    reviews: current.reviews
-  };
-
-  await writeProductData(updatedProduct);
-  revalidateAdminPaths();
-  redirect(withNotice("/admin/product", "পণ্যের সকল তথ্য ও কালার ভ্যারিয়েন্ট একবারে সেভ হয়েছে!"));
 }
 
 export async function updateProductBasics(formData: FormData) {

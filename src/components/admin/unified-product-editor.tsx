@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
 import type { ProductData } from "@/lib/product-store";
 import { saveCompleteProductAction } from "@/app/admin/actions";
 import { getDisplayImageUrl } from "@/lib/image-helper";
@@ -24,7 +25,9 @@ export function UnifiedProductEditor({
 }: {
   initialProduct: ProductData;
 }) {
+  const router = useRouter();
   const [isPending, startTransition] = useTransition();
+  const [feedback, setFeedback] = useState<{ type: "ok" | "error"; msg: string } | null>(null);
 
   // Basic Details State
   const [title, setTitle] = useState(initialProduct.title);
@@ -184,39 +187,88 @@ export function UnifiedProductEditor({
       return;
     }
 
+    setFeedback(null);
+
     startTransition(async () => {
-      const fd = new FormData();
-      fd.append("title", title);
-      fd.append("description", description);
-      fd.append("basePrice", String(basePrice));
-      fd.append("discountType", discountType);
-      fd.append("discountValue", String(discountValue));
-      fd.append("whatsappNumber", whatsappNumber);
-      fd.append("callNumber", callNumber);
+      try {
+        const fd = new FormData();
+        fd.append("title", title);
+        fd.append("description", description);
+        fd.append("basePrice", String(basePrice));
+        fd.append("discountType", discountType);
+        fd.append("discountValue", String(discountValue));
+        fd.append("whatsappNumber", whatsappNumber);
+        fd.append("callNumber", callNumber);
 
-      // Package variant metadata
-      const variantPayload = variants.map((v) => ({
-        id: v.id,
-        colorName: v.colorName,
-        sizes: v.sizes,
-        existingImages: v.existingImages
-      }));
-      fd.append("variantsJson", JSON.stringify(variantPayload));
+        // Package variant metadata
+        const variantPayload = variants.map((v) => ({
+          id: v.id,
+          colorName: v.colorName,
+          sizes: v.sizes,
+          existingImages: v.existingImages
+        }));
+        fd.append("variantsJson", JSON.stringify(variantPayload));
 
-      // Append all new files under `files_<variantId>`
-      variants.forEach((v) => {
-        v.newFiles.forEach((nf) => {
-          fd.append(`files_${v.id}`, nf.file);
+        // Append all new files under `files_<variantId>`
+        variants.forEach((v) => {
+          v.newFiles.forEach((nf) => {
+            fd.append(`files_${v.id}`, nf.file);
+          });
         });
-      });
 
-      await saveCompleteProductAction(fd);
+        const res = await saveCompleteProductAction(fd);
+        if (res.success) {
+          setFeedback({ type: "ok", msg: res.message || "পণ্য সফলভাবে সেভ হয়েছে!" });
+          if (res.updatedProduct?.variants) {
+            setVariants(
+              res.updatedProduct.variants.map((v, idx) => ({
+                id: `var-${Date.now()}-${idx}`,
+                colorName: v.colorName,
+                sizes: v.sizes,
+                existingImages: v.images,
+                newFiles: []
+              }))
+            );
+          }
+          window.scrollTo({ top: 0, behavior: "smooth" });
+          router.refresh();
+        } else {
+          setFeedback({ type: "error", msg: res.error || "সেভ করতে সমস্যা হয়েছে।" });
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+      } catch (err: any) {
+        console.error("Save error:", err);
+        setFeedback({ type: "error", msg: err?.message || "একটি ত্রুটি ঘটেছে। আবার চেষ্টা করুন।" });
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
     });
   };
 
   return (
     <form onSubmit={handleMasterSubmit} className="space-y-6">
-      
+      {/* Live Feedback Banner */}
+      {feedback && (
+        <div
+          className={`rounded-2xl p-4 text-sm font-bold border flex items-center justify-between shadow-xs transition-all ${
+            feedback.type === "error"
+              ? "bg-red-50 text-red-800 border-red-200"
+              : "bg-emerald-50 text-emerald-800 border-emerald-200"
+          }`}
+        >
+          <div className="flex items-center gap-2">
+            <span className="text-lg">{feedback.type === "error" ? "⚠️" : "✅"}</span>
+            <span>{feedback.msg}</span>
+          </div>
+          <button
+            type="button"
+            onClick={() => setFeedback(null)}
+            className="text-xs px-2 py-1 rounded-lg bg-black/5 hover:bg-black/10 transition"
+          >
+            ✕
+          </button>
+        </div>
+      )}
+
       {/* Sticky Top Control Bar with Save Button */}
       <div className="sticky top-14 z-20 -mx-4 sm:-mx-6 px-4 sm:px-6 py-3 bg-white/95 backdrop-blur-md border-y border-slate-200 shadow-xs flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-2">
@@ -263,7 +315,6 @@ export function UnifiedProductEditor({
       </div>
 
       <div className="grid gap-6 lg:grid-cols-[1.1fr_1.9fr] items-start">
-        
         {/* Left Column: Product Basics */}
         <section className="bg-white rounded-3xl p-5 md:p-6 shadow-[0_8px_30px_rgb(0,0,0,0.03)] border border-slate-100 space-y-4 lg:sticky lg:top-32">
           <div className="flex items-center gap-2 pb-3 border-b border-slate-100">
@@ -363,7 +414,7 @@ export function UnifiedProductEditor({
                 <span>🎨</span> ২. কালার ভ্যারিয়েন্ট ও ছবিসমূহ ({variants.length}টি)
               </h3>
               <p className="text-xs text-slate-500 mt-0.5">
-                এখান থেকে যেকোনো কালার যোগ, পরিবর্তন বা ডিলিট করুন। সবশেষে উপরের বা নিচের সেভ বাটনে চাপুন।
+                এখান থেকে যেকোনো কালার যোগ, পরিবর্তন বা ডিলিট করুন। সবশেষে সেভ বাটনে চাপুন।
               </p>
             </div>
 
@@ -494,7 +545,6 @@ export function UnifiedProductEditor({
                           </p>
 
                           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-                            
                             {/* Existing Images */}
                             {variant.existingImages.map((img, imgIdx) => (
                               <div
@@ -583,7 +633,6 @@ export function UnifiedProductEditor({
                                 </div>
                               </div>
                             ))}
-
                           </div>
                         </div>
                       ) : (
@@ -622,7 +671,6 @@ export function UnifiedProductEditor({
             </button>
           </div>
         </section>
-
       </div>
     </form>
   );
