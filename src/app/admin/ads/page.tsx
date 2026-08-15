@@ -158,12 +158,12 @@ export default async function AdsPage() {
 
       {/* Pixel status indicator */}
       <div className="flex items-center gap-3 rounded-2xl border border-slate-100 bg-white px-5 py-4 text-sm shadow-[0_4px_16px_rgb(0,0,0,0.03)]">
-        <span className={`h-2.5 w-2.5 rounded-full ${process.env.NEXT_PUBLIC_META_PIXEL_ID ? "bg-emerald-400" : "bg-amber-400"}`} />
+        <span className={`h-2.5 w-2.5 rounded-full ${process.env.NEXT_PUBLIC_META_PIXEL_ID || "1022935187223903" ? "bg-emerald-400" : "bg-amber-400"}`} />
         <span className="text-slate-600">
           Facebook Pixel:{" "}
           <span className="font-medium">
-            {process.env.NEXT_PUBLIC_META_PIXEL_ID
-              ? `সক্রিয় (ID: ${process.env.NEXT_PUBLIC_META_PIXEL_ID})`
+            {process.env.NEXT_PUBLIC_META_PIXEL_ID || "1022935187223903"
+              ? `সক্রিয় (ID: ${process.env.NEXT_PUBLIC_META_PIXEL_ID || "1022935187223903"})`
               : "সেট করা হয়নি"}
           </span>
         </span>

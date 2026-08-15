@@ -42,12 +42,10 @@ export default function RootLayout({
     <html lang="bn" suppressHydrationWarning>
       <body className={`${inter.variable} ${hindSiliguri.variable} ${notoSansBengali.variable}`} suppressHydrationWarning>
         {/* Facebook Pixel — loads after interactive, tracks every route change */}
-        <Suspense fallback={null}>
-          <MetaPixel
-            pixelId={process.env.NEXT_PUBLIC_META_PIXEL_ID}
-            testEventCode={process.env.META_TEST_EVENT_CODE}
-          />
-        </Suspense>
+        <MetaPixel
+          pixelId={process.env.NEXT_PUBLIC_META_PIXEL_ID || "1022935187223903"}
+          testEventCode={process.env.META_TEST_EVENT_CODE}
+        />
         {children}
       </body>
     </html>

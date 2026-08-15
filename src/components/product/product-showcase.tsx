@@ -4,7 +4,7 @@ import { useActionState, useEffect, useMemo, useState } from "react";
 import { placeOrderAction } from "@/app/order-actions";
 import { formatBdLocalDisplay, toBdInternationalDigits } from "@/lib/phone-bd";
 import type { ProductData } from "@/lib/product-store";
-import { trackPurchase, trackViewContent, trackInitiateCheckout } from "@/components/meta-pixel";
+import { trackPurchase, trackViewContent, trackInitiateCheckout, trackContact } from "@/components/meta-pixel";
 import { getDisplayImageUrl } from "@/lib/image-helper";
 import type { OrderItem } from "@/lib/order-store";
 
@@ -208,7 +208,9 @@ export function ProductShowcase({ product }: { product: ProductData }) {
       setHasInitiatedCheckout(true);
       trackInitiateCheckout({
         value: totalPrice > 0 ? totalPrice : discountedPrice,
-        currency: "BDT"
+        currency: "BDT",
+        contentName: product.title,
+        numItems: totalQuantity || 1
       });
     }
   };
@@ -267,6 +269,7 @@ export function ProductShowcase({ product }: { product: ProductData }) {
           <div className="flex items-center gap-2 sm:gap-3">
             <a
               href={callLink}
+              onClick={() => trackContact({ method: "phone", contentName: product.title })}
               className="hidden items-center gap-1.5 text-xs font-semibold text-[#5C1724] hover:text-[#9E3647] sm:flex bg-white/80 border border-[#E8D3C3] px-3 py-1.5 rounded-full shadow-xs"
             >
               <span>📞</span>
@@ -274,6 +277,7 @@ export function ProductShowcase({ product }: { product: ProductData }) {
             </a>
             <a
               href={whatsappLink}
+              onClick={() => trackContact({ method: "whatsapp", contentName: product.title })}
               className="inline-flex items-center gap-1 rounded-full bg-[#25D366] px-2.5 sm:px-3 py-1 text-xs font-semibold text-white shadow-xs hover:bg-[#20BD5A]"
             >
               <WhatsAppIcon className="h-3.5 w-3.5 shrink-0 text-white" />
@@ -691,6 +695,7 @@ export function ProductShowcase({ product }: { product: ProductData }) {
 
               <a
                 href={callLink}
+                onClick={() => trackContact({ method: "phone", contentName: product.title })}
                 className="group mt-5 inline-flex items-center gap-2.5 text-sm font-semibold tracking-tight text-[#E8C7B0] transition hover:text-[#D4A343]"
               >
                 <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#D4A343]/20 text-[#D4A343] ring-1 ring-[#D4A343]/35 transition group-hover:bg-[#D4A343]/30">
@@ -748,6 +753,7 @@ export function ProductShowcase({ product }: { product: ProductData }) {
       {/* Floating WhatsApp */}
       <a
         href={whatsappLink}
+        onClick={() => trackContact({ method: "whatsapp", contentName: product.title })}
         className="fixed bottom-16 right-4 z-40 flex h-12 w-12 items-center justify-center rounded-full bg-[#25D366] text-white shadow-md md:bottom-6"
         aria-label="WhatsApp"
       >
@@ -766,6 +772,7 @@ export function ProductShowcase({ product }: { product: ProductData }) {
           </a>
           <a
             href={whatsappLink}
+            onClick={() => trackContact({ method: "whatsapp", contentName: product.title })}
             className="flex min-h-10 flex-1 items-center justify-center gap-1 rounded-lg bg-[#25D366] px-3 py-2 text-center text-xs font-bold text-white shadow-xs"
           >
             <WhatsAppIcon className="h-3.5 w-3.5 shrink-0" />

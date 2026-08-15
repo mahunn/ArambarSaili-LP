@@ -53,7 +53,7 @@ export interface CapiPurchaseData {
  */
 export async function sendCapiPurchase(data: CapiPurchaseData): Promise<void> {
   const token = process.env.META_ACCESS_TOKEN;
-  const pixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID;
+  const pixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID || "1022935187223903";
 
   if (!token) {
     console.warn("[meta-capi] META_ACCESS_TOKEN not set — skipping CAPI.");
